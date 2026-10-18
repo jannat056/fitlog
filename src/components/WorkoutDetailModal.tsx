@@ -44,15 +44,15 @@ export default function WorkoutDetailModal({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black text-gray-400 hover:text-white p-2 rounded-full transition"
+          className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black text-gray-400 hover:text-white p-2 rounded-full transition cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
-        {/* Left: Big Image */}
+        {/* Left: Big Image using your exact local asset */}
         <div className="relative w-full md:w-1/2 h-72 md:h-auto min-h-[350px] bg-[#1a2333]">
           <Image
-            src={workout.image || "/assets/banner.png"}
+            src={workout.image || "/assets/Cute Cartoon Boy Lifting a Barbell.png"}
             alt={workout.name}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -144,7 +144,7 @@ export default function WorkoutDetailModal({
           <div className="flex items-center gap-3 pt-4 border-t border-[#1e293b]">
             <button
               onClick={handleAddToPlan}
-              className={`flex-1 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition shadow-lg ${
+              className={`flex-1 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 transition shadow-lg cursor-pointer ${
                 added
                   ? "bg-green-500 text-black shadow-green-500/20 cursor-default"
                   : "bg-[#ccff00] text-black hover:bg-[#b8e600] shadow-[#ccff00]/20"
@@ -156,7 +156,7 @@ export default function WorkoutDetailModal({
 
             <button
               onClick={handleSaveForLater}
-              className={`py-3 px-5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 border transition ${
+              className={`py-3 px-5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-2 border transition cursor-pointer ${
                 saved
                   ? "bg-[#1f293d] text-[#ccff00] border-[#ccff00]/40 cursor-default"
                   : "bg-[#1a2333] text-gray-300 hover:text-white border-[#2a3852] hover:bg-[#253248]"

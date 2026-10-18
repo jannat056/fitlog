@@ -20,33 +20,48 @@ export const PlanProvider = ({ children }: { children: React.ReactNode }) => {
   const [planItems, setPlanItems] = useState<Workout[]>([]);
   const [savedItems, setSavedItems] = useState<Workout[]>([]);
 
-  // Load from localStorage on initial render
+  // Load state from localStorage safely on initial mount
   useEffect(() => {
-    const storedPlan = localStorage.getItem("planItems");
-    const storedSaved = localStorage.getItem("savedItems");
-    if (storedPlan) setPlanItems(JSON.parse(storedPlan));
-    if (storedSaved) setSavedItems(JSON.parse(storedSaved));
+    try {
+      const storedPlan = localStorage.getItem("planItems");
+      const storedSaved = localStorage.getItem("savedItems");
+      if (storedPlan) setPlanItems(JSON.parse(storedPlan));
+      if (storedSaved) setSavedItems(JSON.parse(storedSaved));
+    } catch (error) {
+      console.error("Failed to load items from localStorage:", error);
+    }
   }, []);
 
-  // Save to localStorage on change
+  // Synchronize planItems to localStorage on change
   useEffect(() => {
-    localStorage.setItem("planItems", JSON.stringify(planItems));
+    try {
+      localStorage.setItem("planItems", JSON.stringify(planItems));
+    } catch (error) {
+      console.error("Failed to save planItems to localStorage:", error);
+    }
   }, [planItems]);
 
+  // Synchronize savedItems to localStorage on change
   useEffect(() => {
-    localStorage.setItem("savedItems", JSON.stringify(savedItems));
+    try {
+      localStorage.setItem("savedItems", JSON.stringify(savedItems));
+    } catch (error) {
+      console.error("Failed to save savedItems to localStorage:", error);
+    }
   }, [savedItems]);
 
   const addToPlan = (workout: Workout) => {
-    if (!isInPlan(workout.id)) {
-      setPlanItems((prev) => [...prev, workout]);
-    }
+    setPlanItems((prev) => {
+      if (prev.some((item) => item.id === workout.id)) return prev;
+      return [...prev, workout];
+    });
   };
 
   const saveForLater = (workout: Workout) => {
-    if (!isSaved(workout.id)) {
-      setSavedItems((prev) => [...prev, workout]);
-    }
+    setSavedItems((prev) => {
+      if (prev.some((item) => item.id === workout.id)) return prev;
+      return [...prev, workout];
+    });
   };
 
   const removeFromPlan = (id: string) => {
@@ -78,7 +93,7 @@ export const PlanProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const usePlan = () => {
+export const usePlan = (): PlanContextType => {
   const context = useContext(PlanContext);
   if (!context) {
     throw new Error("usePlan must be used within a PlanProvider");

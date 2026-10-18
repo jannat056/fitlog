@@ -104,7 +104,7 @@ export default function MyPlanPage() {
         <div className="flex items-center gap-2 bg-[#131927] p-1.5 rounded-xl border border-[#1e293b]">
           <button
             onClick={() => setActiveTab("today")}
-            className={`px-5 py-2 text-xs font-bold rounded-lg transition-all ${
+            className={`px-5 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer ${
               activeTab === "today"
                 ? "bg-[#ccff00] text-black shadow-lg shadow-[#ccff00]/20"
                 : "text-gray-400 hover:text-white"
@@ -114,7 +114,7 @@ export default function MyPlanPage() {
           </button>
           <button
             onClick={() => setActiveTab("saved")}
-            className={`px-5 py-2 text-xs font-bold rounded-lg transition-all ${
+            className={`px-5 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer ${
               activeTab === "saved"
                 ? "bg-[#ccff00] text-black shadow-lg shadow-[#ccff00]/20"
                 : "text-gray-400 hover:text-white"
@@ -142,15 +142,15 @@ export default function MyPlanPage() {
                   isCompleted ? "border-green-500/50 bg-green-500/5 shadow-md shadow-green-500/5" : "border-[#1e293b] hover:border-[#ccff00]/40"
                 }`}
               >
-                {/* Left: Thumbnail & Info */}
+                {/* Left: Thumbnail & Info using correct local asset */}
                 <div className="flex items-center gap-4">
                   <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-[#1a2333] flex-shrink-0 border border-[#26334d]">
                     <Image
-                      src={item.image || "/assets/banner.png"}
+                      src={item.image || "/assets/Cute Cartoon Boy Lifting a Barbell.png"}
                       alt={item.name}
                       fill
                       sizes="64px"
-                      className="object-cover"
+                      className="object-cover object-top"
                     />
                   </div>
                   <div>
@@ -170,16 +170,16 @@ export default function MyPlanPage() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setSelectedWorkout(item)}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#1a2332] text-gray-300 hover:bg-[#253248] hover:text-white border border-[#2a3852] transition"
+                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#1a2332] text-gray-300 hover:bg-[#253248] hover:text-white border border-[#2a3852] transition cursor-pointer"
                   >
                     View Details
                   </button>
 
-                  {/* Mark as Done Button (ONLY toggles completion, NEVER deletes) */}
+                  {/* Mark as Done Button */}
                   <button
                     type="button"
                     onClick={(e) => toggleComplete(e, item.id)}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition shadow-md ${
+                    className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition shadow-md cursor-pointer ${
                       isCompleted
                         ? "bg-green-500 text-black shadow-green-500/20"
                         : "bg-[#ccff00] text-black hover:bg-[#b8e600] shadow-[#ccff00]/10"
@@ -189,7 +189,7 @@ export default function MyPlanPage() {
                     {isCompleted ? "Completed" : "Mark as Done"}
                   </button>
 
-                  {/* Delete / Remove Button (Only this removes the item from list) */}
+                  {/* Delete / Remove Button */}
                   <button
                     type="button"
                     onClick={(e) => {
@@ -202,7 +202,7 @@ export default function MyPlanPage() {
                         toast.error("Removed from saved items");
                       }
                     }}
-                    className="p-2 text-gray-400 hover:text-red-400 transition"
+                    className="p-2 text-gray-400 hover:text-red-400 transition cursor-pointer"
                     title="Remove"
                   >
                     <Trash2 className="w-4 h-4" />
