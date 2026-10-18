@@ -1,195 +1,166 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import React, { useState } from "react";
 import { usePlan } from "@/context/PlanContext";
-import Link from "next/link";
 import Image from "next/image";
-
-function TrashIcon(props: any) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M3 6h18" />
-      <path d="M8 6V4h8v2" />
-      <path d="M19 6l-1 14H6L5 6" />
-      <path d="M10 11v6" />
-      <path d="M14 11v6" />
-    </svg>
-  );
-}
-
-function DumbbellIcon(props: any) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M4 9h2v6H4z" />
-      <path d="M18 9h2v6h-2z" />
-      <path d="M8 9h8v6H8z" />
-      <path d="M7 12h-3" />
-      <path d="M17 12h3" />
-      <path d="M10 7V5m4 2V5m-4 12v2m4-2v2" />
-    </svg>
-  );
-}
-
-function FlameIcon(props: any) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M12 2c2.5 2.4 4 4.5 4 7.3A4.7 4.7 0 0 1 11.3 14c-.8 1.6-1.7 2.6-3.3 3.4A5.4 5.4 0 0 0 12 22a6.5 6.5 0 0 0 6.2-9.7c-1.3 1.1-2.6 1.7-3.7 1.7A3.2 3.2 0 0 1 11.3 10c0-1.9 1.3-3.5 4.1-6.1L12 2Z" />
-    </svg>
-  );
-}
-
-function ClockIcon(props: any) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v5l3 2" />
-    </svg>
-  );
-}
+import { Trash2, CheckCircle2 } from "lucide-react";
+import WorkoutDetailModal from "@/components/WorkoutDetailModal";
+import { Workout } from "@/types/workout";
 
 export default function MyPlanPage() {
-  const { planItems, removeFromPlan } = usePlan();
+  const { planItems, savedItems, removeFromPlan, removeFromSaved } = usePlan();
+  const [activeTab, setActiveTab] = useState<"today" | "saved">("today");
+  const [selectedWorkout, setSelectedWorkout] = useState<Workout | null>(null);
 
-  // Calculate totals
-  const totalDuration = planItems.reduce((acc, item) => acc + item.duration, 0);
-  const totalCalories = planItems.reduce((acc, item) => acc + item.calories, 0);
+  const currentItems = activeTab === "today" ? planItems : savedItems;
+
+  // Summary Calculations
+  const totalExercises = currentItems.length;
+  const totalMinutes = currentItems.reduce((acc, item) => {
+    const mins = Number(item.duration) || 0;
+    return acc + mins;
+  }, 0);
+  const totalCalories = currentItems.reduce((acc, item) => {
+    const cals = Number(item.calories) || 0;
+    return acc + cals;
+  }, 0);
 
   return (
-    <main className="min-h-screen bg-[#0d111d] text-white flex flex-col justify-between">
-      <div>
-        <Navbar />
+    <div className="min-h-screen bg-[#0b0f19] text-white px-6 py-8 max-w-6xl mx-auto">
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-3xl font-black tracking-wide text-white">MY PLAN</h1>
+        <p className="text-gray-400 text-sm mt-1">
+          Cap of five lifts for today. Finish them, then load more.
+        </p>
+      </div>
 
-        <section className="max-w-7xl mx-auto px-6 py-12">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-            <div>
-              <span className="inline-block bg-[#1b2234] text-[#d4f136] text-xs font-black tracking-widest px-3.5 py-1.5 rounded-full uppercase border border-gray-800 mb-3">
-                Your Routine
-              </span>
-              <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">
-                My Custom Workout Plan
-              </h1>
-            </div>
+      {/* Stats Summary Bar */}
+      <div className="grid grid-cols-3 gap-4 bg-[#131927] border border-[#1e293b] rounded-2xl p-6 mb-8 text-center">
+        <div>
+          <p className="text-xs uppercase font-bold text-gray-400 mb-1">Exercises</p>
+          <p className="text-3xl font-black text-[#ccff00]">{totalExercises}</p>
+        </div>
+        <div>
+          <p className="text-xs uppercase font-bold text-gray-400 mb-1">Minutes</p>
+          <p className="text-3xl font-black text-white">{totalMinutes}</p>
+        </div>
+        <div>
+          <p className="text-xs uppercase font-bold text-gray-400 mb-1">Calories</p>
+          <p className="text-3xl font-black text-white">{totalCalories}</p>
+        </div>
+      </div>
 
-            {/* Summary Stats Card */}
-            {planItems.length > 0 && (
-              <div className="flex items-center gap-4 bg-[#1b2234] border border-gray-800 p-4 rounded-2xl">
-                <div className="flex items-center gap-2 px-3 py-2 bg-[#121724] rounded-xl border border-gray-800">
-                  <ClockIcon className="w-4 h-4 text-[#d4f136]" />
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold">Total Time</p>
-                    <p className="text-sm font-black text-white">{totalDuration} mins</p>
-                  </div>
+      {/* Tabs & Sort */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-2 bg-[#131927] p-1.5 rounded-xl border border-[#1e293b]">
+          <button
+            onClick={() => setActiveTab("today")}
+            className={`px-5 py-2 text-xs font-bold rounded-lg transition-all ${
+              activeTab === "today"
+                ? "bg-[#ccff00] text-black shadow-lg shadow-[#ccff00]/20"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            Today's Plan
+          </button>
+          <button
+            onClick={() => setActiveTab("saved")}
+            className={`px-5 py-2 text-xs font-bold rounded-lg transition-all ${
+              activeTab === "saved"
+                ? "bg-[#ccff00] text-black shadow-lg shadow-[#ccff00]/20"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            Saved
+          </button>
+        </div>
+
+        <div className="text-xs text-gray-400 flex items-center gap-2">
+          <span>Sort By:</span>
+          <select className="bg-[#131927] border border-[#1e293b] rounded-lg px-3 py-1.5 text-white outline-none">
+            <option>Duration</option>
+            <option>Calories</option>
+          </select>
+        </div>
+      </div>
+
+      {/* List Items */}
+      {currentItems.length === 0 ? (
+        <div className="text-center py-16 bg-[#131927]/50 rounded-2xl border border-dashed border-[#1e293b]">
+          <p className="text-gray-400 text-sm">No workouts added here yet.</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {currentItems.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center justify-between bg-[#131927] border border-[#1e293b] hover:border-[#ccff00]/40 rounded-2xl p-4 transition-all duration-200"
+            >
+              {/* Left: Thumbnail & Info */}
+              <div className="flex items-center gap-4">
+                <div className="relative w-16 h-16 rounded-xl overflow-hidden bg-[#1a2333] flex-shrink-0 border border-[#26334d]">
+                  <Image
+                    src={item.image || "/placeholder.png"}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <div className="flex items-center gap-2 px-3 py-2 bg-[#121724] rounded-xl border border-gray-800">
-                  <FlameIcon className="w-4 h-4 text-[#d4f136]" />
-                  <div>
-                    <p className="text-[10px] text-gray-400 uppercase font-bold">Est. Calories</p>
-                    <p className="text-sm font-black text-white">{totalCalories} kcal</p>
+                <div>
+                  <h3 className="font-bold text-white uppercase text-base tracking-wide">
+                    {item.name}
+                  </h3>
+                  <p className="text-xs text-gray-400 mt-0.5">{item.equipment}</p>
+                  <div className="flex items-center gap-3 text-xs text-gray-400 mt-2">
+                    <span>⏱ {item.duration}</span>
+                    <span>🔥 {item.calories}</span>
+                    {item.rating && <span className="text-yellow-400">⭐ {item.rating}</span>}
                   </div>
                 </div>
               </div>
-            )}
-          </div>
 
-          {/* Plan Content */}
-          {planItems.length === 0 ? (
-            <div className="text-center py-20 bg-[#161d2e]/50 rounded-3xl border border-gray-800/80">
-              <DumbbellIcon className="w-16 h-16 mx-auto text-gray-600 mb-4 stroke-[1.5]" />
-              <h3 className="text-xl font-bold text-gray-300 mb-2">Your plan is currently empty</h3>
-              <p className="text-gray-500 text-sm max-w-md mx-auto mb-6">
-                You haven't added any workouts to your plan yet. Explore the workout library and add exercises to build your routine.
-              </p>
-              <Link
-                href="/"
-                className="inline-block bg-[#d4f136] text-black font-black text-xs uppercase px-6 py-3 rounded-xl hover:bg-[#c2dc2e] transition-colors"
-              >
-                Browse Workouts
-              </Link>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {planItems.map((workout) => (
-                <div
-                  key={workout.id}
-                  className="bg-[#161d2e] border border-gray-800 rounded-2xl p-5 flex flex-col justify-between hover:border-gray-700 transition-all shadow-lg"
+              {/* Right: Actions */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setSelectedWorkout(item)}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#1a2332] text-gray-300 hover:bg-[#253248] hover:text-white border border-[#2a3852] transition"
                 >
-                  <div>
-                    <div className="relative h-40 w-full rounded-xl overflow-hidden mb-4 bg-[#1b2234]">
-                      <Image
-                        src={workout.image}
-                        alt={workout.name}
-                        fill
-                        className="object-cover object-top"
-                      />
-                      <span className="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-[#d4f136] text-[10px] font-black px-2.5 py-1 rounded-md uppercase border border-white/10">
-                        {workout.categories[0]}
-                      </span>
-                    </div>
-
-                    <h3 className="text-lg font-black text-white uppercase tracking-wide mb-2">
-                      {workout.name}
-                    </h3>
-                    <p className="text-xs text-gray-400 font-medium mb-4">
-                      Equipment: <span className="text-gray-200">{workout.equipment}</span>
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-800/80 mt-2">
-                    <div className="flex items-center gap-4 text-xs font-bold text-gray-300">
-                      <span>⏱️ {workout.duration}m</span>
-                      <span>🔥 {workout.calories} kcal</span>
-                    </div>
-                    <button
-                      onClick={() => removeFromPlan(workout.id)}
-                      className="p-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-colors flex items-center gap-1.5 text-xs font-bold"
-                      title="Remove from plan"
-                    >
-                      <TrashIcon className="w-4 h-4" />
-                      <span>Remove</span>
-                    </button>
-                  </div>
-                </div>
-              ))}
+                  View Details
+                </button>
+                <button
+                  onClick={() =>
+                    activeTab === "today"
+                      ? removeFromPlan(item.id)
+                      : removeFromSaved(item.id)
+                  }
+                  className="px-4 py-2 rounded-xl text-xs font-bold bg-[#ccff00] text-black hover:bg-[#b8e600] flex items-center gap-1.5 transition shadow-md shadow-[#ccff00]/10"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  Mark as Done
+                </button>
+                <button
+                  onClick={() =>
+                    activeTab === "today"
+                      ? removeFromPlan(item.id)
+                      : removeFromSaved(item.id)
+                  }
+                  className="p-2 text-gray-400 hover:text-red-400 transition"
+                  title="Remove"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-          )}
-        </section>
-      </div>
+          ))}
+        </div>
+      )}
 
-      <Footer />
-    </main>
+      {/* Workout Detail Modal Pop-up */}
+      <WorkoutDetailModal
+        workout={selectedWorkout}
+        onClose={() => setSelectedWorkout(null)}
+      />
+    </div>
   );
 }

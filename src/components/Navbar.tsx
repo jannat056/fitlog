@@ -7,11 +7,11 @@ import { usePlan } from "@/context/PlanContext";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { planItems } = usePlan();
+  const { planItems, savedItems } = usePlan();
 
-  // Directly derive count from context planItems length
+  // ডাইনামিক কাউন্ট রিসিভ করা হলো
   const planCount = planItems ? planItems.length : 0;
-  const savedCount = 0;
+  const savedCount = savedItems ? savedItems.length : 0;
 
   return (
     <header className="w-full bg-[#1b2234] border-b border-gray-800/80 text-white sticky top-0 z-50">
@@ -65,12 +65,12 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <Link href="/my-plan" className="flex items-center gap-2 hover:text-white transition-colors">
             <span>Saved</span>
             <span className="bg-[#d4f136] text-black text-[11px] font-black w-5 h-5 rounded-full flex items-center justify-center">
               {savedCount}
             </span>
-          </div>
+          </Link>
         </div>
 
       </div>
