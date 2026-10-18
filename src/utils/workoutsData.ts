@@ -1,0 +1,133 @@
+export interface Workout {
+  id: string;
+  name: string;
+  equipment: string;
+  categories: string[];
+  duration: number; // in minutes
+  calories: number;
+  rating: number;
+  image: string;
+}
+
+export const workoutsData: Workout[] = [
+  {
+    id: "1",
+    name: "BARBELL BENCH PRESS",
+    equipment: "Barbell, Bench",
+    categories: ["CHEST", "ARMS"],
+    duration: 25,
+    calories: 180,
+    rating: 4.8,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "2",
+    name: "PULL-UP",
+    equipment: "Pull-up Bar",
+    categories: ["BACK", "ARMS"],
+    duration: 15,
+    calories: 120,
+    rating: 4.7,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "3",
+    name: "BACK SQUAT",
+    equipment: "Barbell, Rack",
+    categories: ["LEGS", "CORE"],
+    duration: 30,
+    calories: 240,
+    rating: 4.9,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "4",
+    name: "OVERHEAD PRESS",
+    equipment: "Barbell",
+    categories: ["SHOULDERS", "ARMS"],
+    duration: 20,
+    calories: 150,
+    rating: 4.6,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "5",
+    name: "DUMBBELL BICEP CURL",
+    equipment: "Dumbbells",
+    categories: ["ARMS"],
+    duration: 12,
+    calories: 80,
+    rating: 4.3,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "6",
+    name: "DUMBBELL BICEP CURL",
+    equipment: "Dumbbells",
+    categories: ["ARMS"],
+    duration: 12,
+    calories: 80,
+    rating: 4.3,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "7",
+    name: "HOLLOW-BODY PLANK",
+    equipment: "Bodyweight",
+    categories: ["CORE"],
+    duration: 10,
+    calories: 60,
+    rating: 4.4,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "8",
+    name: "DUMBBELL BICEP CURL",
+    equipment: "Dumbbells",
+    categories: ["ARMS"],
+    duration: 12,
+    calories: 80,
+    rating: 4.3,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "9",
+    name: "CONVENTIONAL DEADLIFT",
+    equipment: "Barbell",
+    categories: ["BACK", "LEGS"],
+    duration: 28,
+    calories: 260,
+    rating: 4.9,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "10",
+    name: "PUSH-UP",
+    equipment: "Bodyweight",
+    categories: ["CHEST", "ARMS", "CORE"],
+    duration: 10,
+    calories: 90,
+    rating: 4.5,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "11",
+    name: "WALKING LUNGE",
+    equipment: "Dumbbells (optional)",
+    categories: ["LEGS"],
+    duration: 18,
+    calories: 170,
+    rating: 4.4,
+    image: "/assets/banner.png",
+  },
+  {
+    id: "12",
+    name: "RUSSIAN TWIST",
+    equipment: "Medicine Ball",
+    categories: ["CORE"],
+    duration: 8,
+    calories: 70,
+    rating: 4.1,
+    image: "/assets/banner.png",
+  },
+];
