@@ -1,5 +1,3 @@
-"import client"; // Keep or remove depending on if it needs hooks, but standard Next.js works fine
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,12 +19,12 @@ export default function Hero() {
             FitLog is a dark, no-nonsense gym companion: pick a lift, lock it into today's plan, and watch the week's work add up.
           </p>
           <div className="flex items-center gap-4 pt-2">
-            <Link
+            <a
               href="#library"
-              className="px-7 py-3.5 rounded-full bg-[#d4f136] text-black font-bold text-sm hover:bg-[#c2dc2e] transition-colors shadow-lg cursor-pointer"
+              className="px-7 py-3.5 rounded-full bg-[#d4f136] text-black font-bold text-sm hover:bg-[#c2dc2e] transition-colors shadow-lg cursor-pointer inline-flex items-center"
             >
               Explore Workouts
-            </Link>
+            </a>
             <Link
               href="/my-plan"
               className="px-7 py-3.5 rounded-full bg-[#1a2035] border border-gray-800 text-white font-medium text-sm hover:border-gray-700 transition-colors cursor-pointer"
@@ -36,11 +34,11 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right Image (Cartoon Boy Asset) */}
+        {/* Right Image (banner.png) - Untouched & Kept as requested */}
         <div className="relative flex justify-center lg:justify-end">
           <div className="relative w-full max-w-lg h-[320px] md:h-[400px] flex items-center justify-center">
             <Image
-              src="/assets/Cute Cartoon Boy Lifting a Barbell.png" 
+              src="/assets/banner.png" 
               alt="FitLog Banner Illustration"
               fill
               className="object-contain"
