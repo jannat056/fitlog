@@ -1,16 +1,17 @@
 import Hero from "@/components/Hero";
 import WorkoutLibrary from "@/components/WorkoutLibrary";
+import Footer from "@/components/Footer"; // Footer ইমপোর্ট করে নিলে
 
 export default function HomePage() {
   return (
-    <main className="bg-[#0b0f19] min-h-screen">
-      <Hero />
-      <WorkoutLibrary />
+    <main className="bg-[#0b0f19] min-h-screen flex flex-col">
+      <div className="flex-grow">
+        <Hero />
+        <WorkoutLibrary />
+      </div>
 
-      {/* Clean Single Footer */}
-      <footer className="py-6 px-8 text-right text-xs text-gray-500 border-t border-[#1e293b]">
-        © 2026 FitLog — Workout Library
-      </footer>
+      {/* Imported Clean Footer Component */}
+      <Footer />
     </main>
   );
 }
