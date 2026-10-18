@@ -16,7 +16,7 @@ const PlanContext = createContext<PlanContextType | undefined>(undefined);
 export function PlanProvider({ children }: { children: React.ReactNode }) {
   const [planItems, setPlanItems] = useState<Workout[]>([]);
 
-  // LocalStorage support to persist state
+  // Load from localStorage on mount
   useEffect(() => {
     const savedPlan = localStorage.getItem("fitlog_plan");
     if (savedPlan) {
@@ -28,16 +28,22 @@ export function PlanProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  // Save to localStorage on change
   useEffect(() => {
     localStorage.setItem("fitlog_plan", JSON.stringify(planItems));
   }, [planItems]);
 
   const addToPlan = (workout: Workout) => {
+    console.log("Adding workout:", workout); // Debug log
     if (planItems.some((item) => item.id === workout.id)) {
       toast.error(`${workout.name} is already in your plan!`);
       return;
     }
-    setPlanItems((prev) => [...prev, workout]);
+    setPlanItems((prev) => {
+      const updated = [...prev, workout];
+      console.log("Updated plan items:", updated);
+      return updated;
+    });
     toast.success(`${workout.name} added to your plan!`);
   };
 
