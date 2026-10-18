@@ -11,7 +11,7 @@ export default function HomePage() {
 
       {/* Simple Professional Footer */}
       <footer className="py-6 text-center text-xs text-gray-500 border-t border-[#1e293b]">
-        © {new Date().getFullYear()} FitLog. All rights reserved. Train with intent.
+        © 2026 FitLog. All rights reserved. Train with intent.
       </footer>
     </main>
   );
