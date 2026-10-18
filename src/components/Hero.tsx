@@ -1,3 +1,5 @@
+"import client"; // Keep or remove depending on if it needs hooks, but standard Next.js works fine
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,25 +22,25 @@ export default function Hero() {
           </p>
           <div className="flex items-center gap-4 pt-2">
             <Link
-              href="/workouts"
-              className="px-7 py-3.5 rounded-full bg-[#d4f136] text-black font-bold text-sm hover:bg-[#c2dc2e] transition-colors shadow-lg"
+              href="#library"
+              className="px-7 py-3.5 rounded-full bg-[#d4f136] text-black font-bold text-sm hover:bg-[#c2dc2e] transition-colors shadow-lg cursor-pointer"
             >
               Explore Workouts
             </Link>
             <Link
               href="/my-plan"
-              className="px-7 py-3.5 rounded-full bg-[#1a2035] border border-gray-800 text-white font-medium text-sm hover:border-gray-700 transition-colors"
+              className="px-7 py-3.5 rounded-full bg-[#1a2035] border border-gray-800 text-white font-medium text-sm hover:border-gray-700 transition-colors cursor-pointer"
             >
               View My Plan
             </Link>
           </div>
         </div>
 
-        {/* Right Image (banner.png) */}
+        {/* Right Image (Cartoon Boy Asset) */}
         <div className="relative flex justify-center lg:justify-end">
           <div className="relative w-full max-w-lg h-[320px] md:h-[400px] flex items-center justify-center">
             <Image
-              src="/assets/banner.png" 
+              src="/assets/Cute Cartoon Boy Lifting a Barbell.png" 
               alt="FitLog Banner Illustration"
               fill
               className="object-contain"
