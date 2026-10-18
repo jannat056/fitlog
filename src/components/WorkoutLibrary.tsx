@@ -7,7 +7,7 @@ import { Plus, Search, Eye } from "lucide-react";
 import WorkoutDetailModal from "@/components/WorkoutDetailModal";
 import { Workout } from "@/types/workout";
 
-// Full 12 Workouts for 3-Column, 4-Row Grid Layout (Total 12 items)
+// Full 12 Workouts with realistic, high-quality gym images matching Figma requirements
 const MOCK_WORKOUTS: Workout[] = [
   {
     id: "1",
@@ -17,7 +17,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 25,
     calories: 180,
     rating: 4.8,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&auto=format&fit=crop&q=80",
     difficulty: "Intermediate",
     sets: "4",
     reps: "6-8",
@@ -31,7 +31,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 30,
     calories: 240,
     rating: 4.9,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=80",
     difficulty: "Advanced",
     sets: "4",
     reps: "6-8",
@@ -45,7 +45,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 20,
     calories: 150,
     rating: 4.7,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop&q=80",
     difficulty: "Intermediate",
     sets: "3",
     reps: "8-10",
@@ -59,7 +59,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 15,
     calories: 120,
     rating: 4.7,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&auto=format&fit=crop&q=80",
     difficulty: "Intermediate",
     sets: "3",
     reps: "Max",
@@ -73,7 +73,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 35,
     calories: 300,
     rating: 5.0,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80",
     difficulty: "Advanced",
     sets: "3",
     reps: "5",
@@ -87,7 +87,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 20,
     calories: 160,
     rating: 4.6,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=600&auto=format&fit=crop&q=80",
     difficulty: "Intermediate",
     sets: "4",
     reps: "8-10",
@@ -101,7 +101,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 20,
     calories: 140,
     rating: 4.7,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=600&auto=format&fit=crop&q=80",
     difficulty: "Intermediate",
     sets: "4",
     reps: "10-12",
@@ -115,7 +115,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 25,
     calories: 200,
     rating: 4.8,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=600&auto=format&fit=crop&q=80",
     difficulty: "Intermediate",
     sets: "4",
     reps: "8-10",
@@ -129,7 +129,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 15,
     calories: 90,
     rating: 4.6,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&auto=format&fit=crop&q=80",
     difficulty: "Beginner",
     sets: "4",
     reps: "12-15",
@@ -143,7 +143,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 15,
     calories: 100,
     rating: 4.7,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=80",
     difficulty: "Beginner",
     sets: "3",
     reps: "10-12",
@@ -157,7 +157,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 15,
     calories: 100,
     rating: 4.7,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1590483569941-2a13cc7fca6a?w=600&auto=format&fit=crop&q=80",
     difficulty: "Beginner",
     sets: "3",
     reps: "12-15",
@@ -171,7 +171,7 @@ const MOCK_WORKOUTS: Workout[] = [
     duration: 25,
     calories: 210,
     rating: 4.8,
-    image: "/assets/banner.png",
+    image: "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=600&auto=format&fit=crop&q=80",
     difficulty: "Beginner",
     sets: "4",
     reps: "10-12",
@@ -196,13 +196,13 @@ export default function WorkoutLibrary() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8 text-white">
+    <div id="library" className="max-w-7xl mx-auto px-6 py-8 text-white scroll-mt-20">
       {/* Header & Search */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-black tracking-wide">WORKOUT LIBRARY</h1>
+          <h2 className="text-3xl font-black tracking-wide">THE LIBRARY</h2>
           <p className="text-gray-400 text-sm mt-1">
-            Explore high-performance movements and build your custom routine.
+            Twelve lifts covering every major muscle group.
           </p>
         </div>
 
@@ -225,7 +225,7 @@ export default function WorkoutLibrary() {
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
               selectedCategory === cat
                 ? "bg-[#ccff00] text-black shadow-lg shadow-[#ccff00]/20"
                 : "bg-[#131927] text-gray-400 hover:text-white border border-[#1e293b]"
@@ -236,7 +236,7 @@ export default function WorkoutLibrary() {
         ))}
       </div>
 
-      {/* 3-Column Grid (Ensures 3 columns x 4 rows layout for 12 items) */}
+      {/* 3-Column Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredWorkouts.map((workout) => {
           const added = isInPlan(workout.id);
@@ -244,12 +244,12 @@ export default function WorkoutLibrary() {
           return (
             <div
               key={workout.id}
-              className="bg-[#131927] border border-[#1e293b] hover:border-[#ccff00]/40 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 group"
+              className="bg-[#131927] border border-[#1e293b] hover:border-[#ccff00]/40 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 group shadow-lg"
             >
               {/* Image & Badge */}
               <div className="relative h-48 w-full bg-[#1a2333] overflow-hidden">
                 <Image
-                  src={workout.image || "/assets/banner.png"}
+                  src={workout.image}
                   alt={workout.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -276,11 +276,11 @@ export default function WorkoutLibrary() {
                   </div>
                 </div>
 
-                {/* Actions: View Details & Quick Add (Save option is inside Modal as requested) */}
+                {/* Actions */}
                 <div className="flex items-center gap-2 pt-4 border-t border-[#1e293b]">
                   <button
                     onClick={() => setSelectedWorkout(workout)}
-                    className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold bg-[#1a2332] text-gray-300 hover:bg-[#253248] hover:text-white border border-[#2a3852] transition flex items-center justify-center gap-1.5"
+                    className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold bg-[#1a2332] text-gray-300 hover:bg-[#253248] hover:text-white border border-[#2a3852] transition flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Eye className="w-3.5 h-3.5" />
                     View Details
@@ -292,10 +292,10 @@ export default function WorkoutLibrary() {
                       if (added) return;
                       addToPlan(workout);
                     }}
-                    className={`py-2.5 px-3.5 rounded-xl text-xs font-bold transition flex items-center gap-1 ${
+                    className={`py-2.5 px-3.5 rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer ${
                       added
-                        ? "bg-green-500 text-black"
-                        : "bg-[#ccff00] text-black hover:bg-[#b8e600]"
+                        ? "bg-green-500 text-black shadow-md shadow-green-500/20"
+                        : "bg-[#ccff00] text-black hover:bg-[#b8e600] shadow-md shadow-[#ccff00]/10"
                     }`}
                     title={added ? "In Plan" : "Add to Plan"}
                   >
@@ -309,7 +309,7 @@ export default function WorkoutLibrary() {
         })}
       </div>
 
-      {/* Popup Modal (Where 'Save for Later' and deep details live) */}
+      {/* Popup Modal */}
       <WorkoutDetailModal
         workout={selectedWorkout}
         onClose={() => setSelectedWorkout(null)}
