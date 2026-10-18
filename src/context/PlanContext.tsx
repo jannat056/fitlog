@@ -15,45 +15,60 @@ const PlanContext = createContext<PlanContextType | undefined>(undefined);
 
 export function PlanProvider({ children }: { children: React.ReactNode }) {
   const [planItems, setPlanItems] = useState<Workout[]>([]);
+  const [isClient, setIsClient] = useState(false);
 
-  // Load from localStorage on mount
+  // Load saved plan from localStorage on initial client mount
   useEffect(() => {
-    const savedPlan = localStorage.getItem("fitlog_plan");
-    if (savedPlan) {
+    setIsClient(true);
+    const saved = localStorage.getItem("fitlog_plan");
+    if (saved) {
       try {
-        setPlanItems(JSON.parse(savedPlan));
-      } catch (e) {
-        console.error("Failed to parse plan from localStorage", e);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setPlanItems(parsed);
+        }
+      } catch (err) {
+        console.error("Failed to load plan from localStorage:", err);
       }
     }
   }, []);
 
-  // Save to localStorage on change
+  // Save to localStorage whenever planItems change
   useEffect(() => {
-    localStorage.setItem("fitlog_plan", JSON.stringify(planItems));
-  }, [planItems]);
+    if (isClient) {
+      localStorage.setItem("fitlog_plan", JSON.stringify(planItems));
+    }
+  }, [planItems, isClient]);
 
   const addToPlan = (workout: Workout) => {
-    console.log("Adding workout:", workout); // Debug log
-    if (planItems.some((item) => item.id === workout.id)) {
+    console.log("Adding workout clicked:", workout); // Debug log
+
+    // Check if already in plan using string comparison
+    const exists = planItems.some(
+      (item) => String(item.id) === String(workout.id)
+    );
+
+    if (exists) {
       toast.error(`${workout.name} is already in your plan!`);
       return;
     }
+
     setPlanItems((prev) => {
       const updated = [...prev, workout];
-      console.log("Updated plan items:", updated);
+      console.log("New plan items array:", updated); // Debug log
       return updated;
     });
+
     toast.success(`${workout.name} added to your plan!`);
   };
 
   const removeFromPlan = (id: string) => {
-    setPlanItems((prev) => prev.filter((item) => item.id !== id));
+    setPlanItems((prev) => prev.filter((item) => String(item.id) !== String(id)));
     toast.success("Workout removed from plan.");
   };
 
   const isInPlan = (id: string) => {
-    return planItems.some((item) => item.id === id);
+    return planItems.some((item) => String(item.id) === String(id));
   };
 
   return (

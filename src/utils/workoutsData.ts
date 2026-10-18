@@ -62,12 +62,12 @@ export const workoutsData: Workout[] = [
   },
   {
     id: "6",
-    name: "DUMBBELL BICEP CURL",
+    name: "HAMMER CURL",
     equipment: "Dumbbells",
     categories: ["ARMS"],
     duration: 12,
-    calories: 80,
-    rating: 4.3,
+    calories: 85,
+    rating: 4.4,
     image: "/assets/banner.png",
   },
   {
@@ -82,12 +82,12 @@ export const workoutsData: Workout[] = [
   },
   {
     id: "8",
-    name: "DUMBBELL BICEP CURL",
+    name: "LATERAL RAISE",
     equipment: "Dumbbells",
-    categories: ["ARMS"],
-    duration: 12,
-    calories: 80,
-    rating: 4.3,
+    categories: ["SHOULDERS"],
+    duration: 10,
+    calories: 70,
+    rating: 4.5,
     image: "/assets/banner.png",
   },
   {

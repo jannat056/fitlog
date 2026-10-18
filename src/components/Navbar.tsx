@@ -9,8 +9,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const { planItems } = usePlan();
 
-  // Dynamic counter connected to PlanContext
-  const planCount = planItems.length;
+  // Directly derive count from context planItems length
+  const planCount = planItems ? planItems.length : 0;
   const savedCount = 0;
 
   return (
